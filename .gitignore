@@ -82,7 +82,3 @@ Assets/Feel/NiceVibrations/OlderVersions/v2.0.1/NiceVibrations-v-2-0-1.unitypack
 Assets/Feel/NiceVibrations/OlderVersions/v3.9/NiceVibrations-v-3-9-0.unitypackage.meta
 Assets/TreasureFX/Upgrade/Treasure FX URP (2019.4 LTS).unitypackage.meta
 
-
-!/Assets/Freeplay/**/*.unitypackage
-!/Assets/Freeplay/Modules/Module.Firebase/**/*.pdb
-!/Assets/Freeplay/Modules/Module.Firebase/**/*.pdb.meta
