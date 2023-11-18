@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class TextureTest : MonoBehaviour
 {
-    [SerializeField]  private Texture2D _texture;
+    [SerializeField] private Texture2D _texture;
     [Range(2,512)]
-    [SerializeField]  private int _resolution;
+    [SerializeField] private int _resolution;
 
-    [SerializeField]  private FilterMode _filtermode;
+    [SerializeField] private FilterMode _filtermode;
+    [SerializeField] private TextureWrapMode _textureWrapMode;
   
     
     private void OnValidate()
@@ -26,18 +27,30 @@ public class TextureTest : MonoBehaviour
             
         }
 
-
+        
 
         _texture.filterMode = _filtermode;
+        _texture.wrapMode = _textureWrapMode;
         
         // _texture.SetPixel(5,5,Color.red);
         // _texture.SetPixel(6,6,Color.yellow);
 
+
+        float step = 1f / _resolution;
+        
         for (int y = 0; y < _resolution; y++)
         {
             for (int x = 0; x < _resolution; x++)
             {
-                _texture.SetPixel(x,y,new Color(1,0.5f,0,1));
+                if (x % 5 == 0 || y % 5 == 0)
+                {
+                    _texture.SetPixel(x,y,Color.black);
+                }
+                else
+                {
+                    _texture.SetPixel(x,y,Color.white);
+                }
+                // _texture.SetPixel(x,y,new Color((x+0.5f)*step,(y+0.5f)*step,0,1));
             }
         }
 
