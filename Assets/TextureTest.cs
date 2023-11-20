@@ -11,7 +11,11 @@ public class TextureTest : MonoBehaviour
 
     [SerializeField] private FilterMode _filtermode;
     [SerializeField] private TextureWrapMode _textureWrapMode;
-  
+    [SerializeField] private float _radiusOut;  
+    [SerializeField] private float _radiusIn;
+    [SerializeField] private Vector2 offset;
+    
+    
     
     private void OnValidate()
     {
@@ -24,7 +28,7 @@ public class TextureTest : MonoBehaviour
         if (_texture.width != _resolution)
         {
             _texture.Reinitialize(_resolution,_resolution);
-            
+            _texture.Reinitialize(_resolution, _resolution);
         }
 
         
@@ -42,7 +46,13 @@ public class TextureTest : MonoBehaviour
         {
             for (int x = 0; x < _resolution; x++)
             {
-                if (x % 5 == 0 || y % 5 == 0)
+                float x2 = Mathf.Pow((x+0.5f) * step - offset.x, 2);
+                float y2 = Mathf.Pow((y+0.5f) * step - offset.y, 2);
+                float rOut2 = Mathf.Pow(_radiusOut, 2);   
+                float rIn2 = Mathf.Pow(_radiusIn, 2);
+                float result = x2 + y2;
+                
+                if(result < rOut2 && result > rIn2)
                 {
                     _texture.SetPixel(x,y,Color.black);
                 }
@@ -50,7 +60,6 @@ public class TextureTest : MonoBehaviour
                 {
                     _texture.SetPixel(x,y,Color.white);
                 }
-                // _texture.SetPixel(x,y,new Color((x+0.5f)*step,(y+0.5f)*step,0,1));
             }
         }
 
