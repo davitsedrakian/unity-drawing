@@ -14,6 +14,7 @@ public class TextureTest : MonoBehaviour
     [SerializeField] private float _radiusOut;  
     [SerializeField] private float _radiusIn;
     [SerializeField] private Vector2 offset;
+    [SerializeField] private Gradient _gradient;
     
     
     
@@ -52,13 +53,20 @@ public class TextureTest : MonoBehaviour
                 float rIn2 = Mathf.Pow(_radiusIn, 2);
                 float result = x2 + y2;
                 
+                
+                float interpolant = Mathf.InverseLerp(rIn2, rOut2, result);
+                Color color = _gradient.Evaluate(interpolant);
+                
+                _texture.SetPixel(x,y,color);
+                
                 if(result < rOut2 && result > rIn2)
                 {
-                    _texture.SetPixel(x,y,Color.black);
+                    // _texture.SetPixel(x,y,Color.black);
+                    // _texture.SetPixel(x,y,Color.Lerp(Color.red,Color.blue,interpolant));
                 }
                 else
                 {
-                    _texture.SetPixel(x,y,Color.white);
+                    //_texture.SetPixel(x,y,Color.white);
                 }
             }
         }
