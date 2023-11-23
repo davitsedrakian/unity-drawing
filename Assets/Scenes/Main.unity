@@ -277,7 +277,7 @@ MonoBehaviour:
   _material: {fileID: 2100000, guid: 939e1ec11fed945b8a33186003b02bc1, type: 2}
   _camera: {fileID: 996889399}
   _collider: {fileID: 953852997}
-  _color: {r: 1, g: 0.06132078, b: 0.06132078, a: 0.2627451}
+  _color: {r: 1, g: 0.06132078, b: 0.06132078, a: 0.003921569}
   _brushSize: 16
 --- !u!23 &953852994
 MeshRenderer:

@@ -111,6 +111,42 @@ public class Paint : MonoBehaviour
             }
         }
     }
+
+    private void DrawCircleBlendColors(int rayX, int rayY)
+    {
+        for (int y = 0; y < _brushSize; y++) {
+            for (int x = 0; x < _brushSize; x++) {
+
+                float x2 = Mathf.Pow(x - _brushSize / 2, 2);
+                float y2 = Mathf.Pow(y - _brushSize / 2, 2);
+                float r2 = Mathf.Pow(_brushSize / 2 - 0.5f, 2);
+
+                if (x2 + y2 < r2) {
+                    int pixelX = rayX + x - _brushSize / 2;
+                    int pixelY = rayY + y - _brushSize / 2;
+
+                    if (pixelX >= 0 && pixelX < _textureSize && pixelY >= 0 && pixelY < _textureSize) {
+                        Color oldColor = _texture.GetPixel(pixelX, pixelY);
+                        
+                        //Lerp Blend
+                        // Color resultColor = Color.Lerp(oldColor, _color, _color.a);
+                        
+                        // Additive Blend
+                        // Color resultColor = oldColor + _color;
+
+                        // Multiplicative Blend
+                        Color resultColor = new Color(oldColor.r * _color.r, oldColor.g * _color.g, oldColor.b * _color.b, oldColor.a * _color.a);
+
+                        
+                        _texture.SetPixel(pixelX, pixelY, resultColor);
+                    }
+
+                }
+
+                
+            }
+        }
+    }
     
     
 }
