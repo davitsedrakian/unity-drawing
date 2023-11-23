@@ -57,8 +57,10 @@ public class Paint : MonoBehaviour
                 if (_oldRayX != rayX || _oldRayY != rayY)
                 {
                     // DrawQuad(rayX,rayY);
-                    DrawCircle(rayX,rayY);
-
+                    // DrawCircle(rayX,rayY);
+                    DrawCircleBlendColors(rayX, rayY);
+                    
+                    
                     _oldRayX = rayX;
                     _oldRayY = rayY;
                 
@@ -129,13 +131,13 @@ public class Paint : MonoBehaviour
                         Color oldColor = _texture.GetPixel(pixelX, pixelY);
                         
                         //Lerp Blend
-                        // Color resultColor = Color.Lerp(oldColor, _color, _color.a);
+                        Color resultColor = Color.Lerp(oldColor, _color, _color.a);
                         
                         // Additive Blend
-                        // Color resultColor = oldColor + _color;
+                        // Color resultColor = oldColor + _color; 
 
                         // Multiplicative Blend
-                        Color resultColor = new Color(oldColor.r * _color.r, oldColor.g * _color.g, oldColor.b * _color.b, oldColor.a * _color.a);
+                        // Color resultColor = new Color(oldColor.r * _color.r, oldColor.g * _color.g, oldColor.b * _color.b, oldColor.a * _color.a);
 
                         
                         _texture.SetPixel(pixelX, pixelY, resultColor);
