@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scrtwpns.Mixbox;
 
 public class Paint : MonoBehaviour
 {
@@ -58,7 +59,8 @@ public class Paint : MonoBehaviour
                 {
                     // DrawQuad(rayX,rayY);
                     // DrawCircle(rayX,rayY);
-                    DrawCircleBlendColors(rayX, rayY);
+                    // DrawCircleBlendColors(rayX, rayY);
+                    DrawCircleMixbox(rayX, rayY);
                     
                     
                     _oldRayX = rayX;
@@ -108,8 +110,6 @@ public class Paint : MonoBehaviour
                     }
 
                 }
-
-                
             }
         }
     }
@@ -149,6 +149,51 @@ public class Paint : MonoBehaviour
             }
         }
     }
-    
-    
+
+    private void DrawCircleMixbox(int rayX, int rayY)
+    {
+        // Color color1 = new Color(0.0f, 0.129f, 0.522f); // blue
+        // Color color2 = new Color(0.988f, 0.827f, 0.0f); // yellow
+        float t = 0.5f;                                 // mixing ratio
+
+        // Color colorMix = Mixbox.Lerp(color1, color2, t);
+
+        
+        for (int y = 0; y < _brushSize; y++) {
+            for (int x = 0; x < _brushSize; x++) {
+
+                float x2 = Mathf.Pow(x - _brushSize / 2, 2);
+                float y2 = Mathf.Pow(y - _brushSize / 2, 2);
+                float r2 = Mathf.Pow(_brushSize / 2 - 0.5f, 2);
+
+                if (x2 + y2 < r2) {
+                    int pixelX = rayX + x - _brushSize / 2;
+                    int pixelY = rayY + y - _brushSize / 2;
+
+                    if (pixelX >= 0 && pixelX < _textureSize && pixelY >= 0 && pixelY < _textureSize) {
+                        Color oldColor = _texture.GetPixel(pixelX, pixelY);
+                        
+                        // Lerp Blend
+                        // Color resultColor = Color.Lerp(oldColor, _color, _color.a);
+                        
+                        // Additive Blend
+                        // Color resultColor = oldColor + _color; 
+
+                        // Multiplicative Blend
+                        // Color resultColor = new Color(oldColor.r * _color.r, oldColor.g * _color.g, oldColor.b * _color.b, oldColor.a * _color.a);
+
+                        // Mixbox
+                        Color resultColor = Mixbox.Lerp(oldColor, _color, t);
+                        
+                        _texture.SetPixel(pixelX, pixelY, resultColor);
+                    }
+
+                }
+
+                
+            }
+        }
+        
+        // Debug.Log(colorMix);
+    }
 }
